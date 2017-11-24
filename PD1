@@ -1,0 +1,82 @@
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String mail = "abcdefgh@s.gh.pl";
+        int strefa = 3;
+        boolean ok = true;
+        int count = 0;
+        String b = "mail jest poprawny";
+        String mailreverse = new StringBuilder(mail).reverse().toString();
+
+        for(int i = mail.length() - 1; i >= 0; --i)
+        {
+            char m = mail.charAt(i);
+
+            switch(strefa)
+            {
+                case 1:
+                    ++count;
+                    //System.out.println("jestem w 1 strefie");
+                    //System.out.println(m);
+                    if ((m >= 'a' && m <= 'z') || (m >= 'A' && m <= 'Z') || m == '.' || m == '_' || m == '-')
+                    {
+                        //System.out.println("jest ok");
+                        ok = true;
+                    }
+
+                    else
+                        {
+                            //System.out.println("jest błąd");
+                            count = 0;
+                            ok = false;
+                        }
+                    break;
+
+                case 2:
+                    ++count;
+                    //System.out.println("jestem w 2 strefie");
+                    //System.out.println(m);
+                    if (((m < 'a' || m > 'z') && m != '.'))
+                    {
+                        ok = false;
+                    }
+                    if (m == '@')
+                    {
+                        strefa = 1;
+                        count = 0;
+                       //System.out.println("dalej");
+                        ok = true;
+                    }
+                    break;
+
+                case 3:
+                    ++count;
+                   // System.out.println(m);
+                    if (m >= 'a' && m <= 'z' || m == '.')
+                    {
+                        //System.out.println("tu wchodze");
+                        if (m == '.')
+                        {
+                            //System.out.println(count);
+                            if (count >= 2 && count <= 3)
+                            {
+                                strefa = 2;
+                                count = 0;
+                            }
+                            else ok = false;
+                        }
+                    }
+                    else ok = false;
+            }
+
+            if (!ok) break;
+
+        }
+
+        if (ok) System.out.println(b);
+        else System.out.println("e-mail błędny");
+
+    }
+}
